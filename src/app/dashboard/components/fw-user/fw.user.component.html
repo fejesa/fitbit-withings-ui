@@ -1,0 +1,13 @@
+<div *ngIf="!isEmpty()" class="container-fluid user-pad">
+  <div class="row">
+    <div class="col badge badge-pill badge-secondary user-label">
+      Name: {{getUserName()}}
+    </div>
+    <div class="col badge badge-pill badge-secondary user-label">
+      {{getAge()}}
+    </div>
+    <div class="col badge badge-pill badge-secondary user-label">
+      {{getWeight()}}
+    </div>
+  </div>
+</div>

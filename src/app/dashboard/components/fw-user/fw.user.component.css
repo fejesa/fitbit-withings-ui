@@ -1,0 +1,10 @@
+.user-label {
+  display:inline-block;
+  width:120px;
+  height:25px;
+  font-size:medium
+}
+
+.user-pad {
+  padding-bottom: 10px
+}

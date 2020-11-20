@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {FwDashboardComponent} from './dashboard/containers/fw-dashboard/fw-dashboard.component';
+import {FWDashboardComponent} from './dashboard/containers/fw-dashboard/fw-dashboard.component';
 
 const routes: Routes = [
-  {path: 'dashboard', component: FwDashboardComponent},
+  {path: 'dashboard', component: FWDashboardComponent},
   {path: '**', redirectTo: '/dashboard', pathMatch: 'full'}
 ];
 
