@@ -46,3 +46,28 @@ export class FitbitUserActivities {
               public device: FitbitDevice) {
   }
 }
+
+export class FitbitHeartZones {
+  constructor(public date: string,
+              public restingHeartRate: number,
+              public zoneFirstMinutes: number,
+              public zoneSecondMinutes: number,
+              public zoneThirdMinutes: number,
+              public calories: number,
+              public bloodPressureSeverity: string) {
+  }
+}
+
+export enum HeartZone {
+  OutOfRange= 'Out of Range',
+  FatBurn = 'Fat Burn',
+  Cardio = 'Cardio',
+  Peak = 'Peak'
+}
+
+export enum BloodPressureSeverity {
+  Success = 'success',
+  Warning = 'warning',
+  Danger = 'danger',
+  NA = 'na'
+}

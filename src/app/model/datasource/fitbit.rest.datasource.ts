@@ -1,9 +1,9 @@
 import {Inject, Injectable, InjectionToken} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {FitbitUserActivities, WithingsBloodPressure} from '../data/fw.model';
+import {FitbitUserActivities} from '../data/fw.model';
 import {Observable, throwError} from 'rxjs';
-import {getDateAsString} from '../../util/fw.utils';
 import {catchError} from 'rxjs/operators';
+import {getDateAsString} from '../../util/date.util';
 
 export const FITBIT_REST_URL = new InjectionToken('fitbit_rest_url');
 

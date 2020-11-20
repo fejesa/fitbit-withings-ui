@@ -1,0 +1,43 @@
+<div>
+  <table *ngIf="!isEmpty()" class="table table-sm">
+    <thead>
+    <tr class="text-center thead-light">
+      <th>Date</th>
+      <th>FatBurn (mins)</th>
+      <th>Cardio (mins)</th>
+      <th>Peak (mins)</th>
+      <th>Calories</th>
+      <th>RestingHR</th>
+      <th>BPM severity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let hz of getHeartZones()">
+      <td class="text-center">
+        <span >{{ hz.date}}</span>
+      </td>
+      <td class="text-center">
+        <span class="badge badge-pill result-label result-fatburn">{{ hz.zoneFirstMinutes }}</span>
+      </td>
+      <td class="text-center">
+        <span class="badge badge-pill result-label result-cardio">{{ hz.zoneSecondMinutes }}</span>
+      </td>
+      <td class="text-center">
+        <span class="badge badge-pill result-label result-peak">{{ hz.zoneThirdMinutes }}</span>
+      </td>
+      <td class="text-center">
+        <span>{{ hz.calories }}</span>
+      </td>
+      <td class="text-center">
+        <span>{{ hz.restingHeartRate }}</span>
+      </td>
+      <td class="text-center">
+        <span class="badge badge-pill badge-{{ hz.bloodPressureSeverity }} result-label">{{ hz.bloodPressureSeverity }}</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div *ngIf="isEmpty()">
+    <h4>No data in the given period</h4>
+  </div>
+</div>

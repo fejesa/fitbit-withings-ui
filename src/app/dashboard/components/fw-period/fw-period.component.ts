@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {getDefaultPeriod} from '../../../util/fw.utils';
+import {getDefaultPeriod} from '../../../util/date.util';
 
 @Component({
   selector: 'app-fw-period',

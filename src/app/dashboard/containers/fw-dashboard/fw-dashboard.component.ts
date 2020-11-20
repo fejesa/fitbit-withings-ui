@@ -1,9 +1,9 @@
 import {Component, DoCheck} from '@angular/core';
 import {WithingsRestDatasource} from '../../../model/datasource/withings.rest.datasource';
 import {FitbitRestDatasource} from '../../../model/datasource/fitbit.rest.datasource';
-import {getDefaultPeriod} from '../../../util/fw.utils';
 import {forkJoin} from 'rxjs';
-import {FitbitUser} from '../../../model/data/fw.model';
+import {FitbitActivitiesHeart, FitbitUser, FitbitUserActivities, WithingsBloodPressure} from '../../../model/data/fw.model';
+import {getDefaultPeriod} from '../../../util/date.util';
 
 @Component({
     selector: 'app-fw-dashboard',
@@ -16,6 +16,8 @@ export class FWDashboardComponent implements DoCheck {
   private period: Date[];
 
   private user: FitbitUser;
+
+  private data: [WithingsBloodPressure[], FitbitActivitiesHeart[]];
 
   private state = {
     period: getDefaultPeriod()
@@ -34,6 +36,10 @@ export class FWDashboardComponent implements DoCheck {
     return this.user;
   }
 
+  getData(): [WithingsBloodPressure[], FitbitActivitiesHeart[]] {
+    return this.data;
+  }
+
   ngDoCheck(): void {
     if (this.isChanged()) {
       this.updateState();
@@ -42,9 +48,7 @@ export class FWDashboardComponent implements DoCheck {
         .getBloodPressures(this.period), this.fitbitDataSource
         .getUserActivities(this.period)])
         .subscribe(results => {
-          console.log(JSON.stringify(results[0]));
-          console.log(JSON.stringify(results[1]));
-
+          this.data = [results[0], results[1].activitiesHeartList];
           this.user = results[1].user;
         });
     }

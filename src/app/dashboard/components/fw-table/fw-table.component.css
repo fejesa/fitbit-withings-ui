@@ -1,0 +1,21 @@
+.result-label {
+  display:inline-block;
+  width:120px;
+  height:25px;
+  font-size:medium
+}
+
+.result-peak {
+  background-color: #FD0000;
+  color: white;
+}
+
+.result-cardio {
+  background-color: #FD6400;
+  color: white;
+}
+
+.result-fatburn {
+  background-color: #FDAC00;
+  color: white;
+}

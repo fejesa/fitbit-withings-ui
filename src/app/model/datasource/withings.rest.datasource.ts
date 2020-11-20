@@ -2,8 +2,8 @@ import {Inject, Injectable, InjectionToken} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {WithingsBloodPressure} from '../data/fw.model';
 import {Observable, throwError} from 'rxjs';
-import {getDateAsString} from '../../util/fw.utils';
 import {catchError} from 'rxjs/operators';
+import {getDateAsString} from '../../util/date.util';
 
 export const WITHINGS_REST_URL = new InjectionToken('withings_rest_url');
 

@@ -11,25 +11,25 @@ export class FWUserComponent {
   @Input()
   user: FitbitUser;
 
-  public getUserName(): string {
+  getUserName(): string {
     if (!this.isEmpty()) {
       return this.user.displayName;
     }
   }
 
-  public getAge(): number {
+  getAge(): number {
     if (!this.isEmpty()) {
       return this.user.age;
     }
   }
 
-  public getWeight(): number {
+  getWeight(): number {
     if (!this.isEmpty()) {
       return this.user.height;
     }
   }
 
-  public isEmpty(): boolean {
+  isEmpty(): boolean {
     return this.user == null;
   }
 }
