@@ -53,7 +53,8 @@ export class FwTableComponent {
     const date = activitiesHeart.dateTime;
     const restingHeartRate = activitiesHeart.value.restingHeartRate;
     const heartRateZones = activitiesHeart.value.heartRateZones;
-    const calories = heartRateZones.reduce((a, b) => a + b.caloriesOut, 0);
+    const caloriesSum = heartRateZones.reduce((a, b) => a + b.caloriesOut, 0);
+    const calories = Math.round(caloriesSum);
     const fatBurnMins = this.zoneMins(HeartZone.FatBurn, heartRateZones);
     const cardioMins = this.zoneMins(HeartZone.Cardio, heartRateZones);
     const peakMins = this.zoneMins(HeartZone.Peak, heartRateZones);

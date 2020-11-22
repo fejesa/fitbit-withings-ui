@@ -1,5 +1,5 @@
 <div>
-  <table *ngIf="!isEmpty()" class="table table-sm">
+  <table *ngIf="!isEmpty()" class="table table-sm table-hover">
     <thead>
     <tr class="text-center thead-light">
       <th>Date</th>
@@ -15,28 +15,45 @@
     <tbody>
     <tr *ngFor="let hz of getHeartZones()">
       <td class="text-center">
-        <span >{{ hz.date}}</span>
+        <a routerLink="/chart/{{hz.date}}" class="table-cell-link" target="_blank">
+          <span>{{ hz.date}}</span>
+        </a>
       </td>
       <td class="text-center">
-        <span [class]="getPeakCellClass(hz.peakMinutes)">{{ hz.peakMinutes }}</span>
+        <a routerLink="/chart/{{hz.date}}"  class="table-cell-link" target="_blank">
+          <span [class]="getPeakCellClass(hz.peakMinutes)">{{ hz.peakMinutes }}</span>
+        </a>
       </td>
       <td class="text-center">
-        <span [class]="getCardioCellClass(hz.cardioMinutes)">{{ hz.cardioMinutes }}</span>
+        <a routerLink="/chart/{{hz.date}}"  class="table-cell-link" target="_blank">
+          <span [class]="getCardioCellClass(hz.cardioMinutes)">{{ hz.cardioMinutes }}</span>
+        </a>
       </td>
       <td class="text-center">
-        <span [class]="getFatBurnCellClass(hz.fatBurnMinutes)">{{ hz.fatBurnMinutes }}</span>
+        <a routerLink="/chart/{{hz.date}}"  class="table-cell-link" target="_blank">
+          <span [class]="getFatBurnCellClass(hz.fatBurnMinutes)">{{ hz.fatBurnMinutes }}</span>
+        </a>
       </td>
       <td class="text-center">
-        <span>{{ hz.activeMinutes}}</span>
+        <a routerLink="/chart/{{hz.date}}"  class="table-cell-link" target="_blank">
+          <span>{{ hz.activeMinutes}}</span>
+        </a>
       </td>
       <td class="text-center">
-        <span>{{ hz.calories }}</span>
+        <a routerLink="/chart/{{hz.date}}"  class="table-cell-link" target="_blank">
+          <span>{{ hz.calories }}</span>
+        </a>
       </td>
       <td class="text-center">
-        <span>{{ hz.restingHeartRate }}</span>
+        <a routerLink="/chart/{{hz.date}}"  class="table-cell-link" target="_blank">
+          <span>{{ hz.restingHeartRate }}</span>
+        </a>
       </td>
       <td class="text-center">
-        <span class="badge badge-pill badge-{{ hz.bloodPressureSeverity }} result-label">{{ hz.bloodPressureSeverity }}</span>
+        <a routerLink="/chart/{{hz.date}}"  class="table-cell-link" target="_blank">
+          <span
+            class="badge badge-pill badge-{{ hz.bloodPressureSeverity }} result-label">{{ hz.bloodPressureSeverity }}</span>
+        </a>
       </td>
     </tr>
     </tbody>

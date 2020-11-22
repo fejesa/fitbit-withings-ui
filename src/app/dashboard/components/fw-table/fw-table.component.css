@@ -19,3 +19,12 @@
   background-color: #FDAC00;
   color: white;
 }
+
+.table-row {
+  cursor: pointer;
+}
+
+.table-cell-link {
+  text-decoration: none;
+  color: inherit;
+}

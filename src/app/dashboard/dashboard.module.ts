@@ -10,12 +10,14 @@ import {FWPeriodComponent} from './components/fw-period/fw-period.component';
 import {FwTableComponent} from './components/fw-table/fw-table.component';
 import {FWModelModule} from '../model/fw.model.module';
 import {FWUserComponent} from './components/fw-user/fw.user.component';
+import {FwChartComponent} from './components/fw-chart/fw-chart.component';
 
 @NgModule({
   declarations: [
     FWDashboardComponent,
     FWPeriodComponent,
     FWUserComponent,
+    FwChartComponent,
     FwTableComponent
   ],
   imports: [
