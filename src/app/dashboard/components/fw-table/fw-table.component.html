@@ -3,9 +3,10 @@
     <thead>
     <tr class="text-center thead-light">
       <th>Date</th>
-      <th>FatBurn (mins)</th>
-      <th>Cardio (mins)</th>
       <th>Peak (mins)</th>
+      <th>Cardio (mins)</th>
+      <th>FatBurn (mins)</th>
+      <th>Active Zone (mins)</th>
       <th>Calories</th>
       <th>RestingHR</th>
       <th>BPM severity</th>
@@ -17,13 +18,16 @@
         <span >{{ hz.date}}</span>
       </td>
       <td class="text-center">
-        <span class="badge badge-pill result-label result-fatburn">{{ hz.zoneFirstMinutes }}</span>
+        <span [class]="getPeakCellClass(hz.peakMinutes)">{{ hz.peakMinutes }}</span>
       </td>
       <td class="text-center">
-        <span class="badge badge-pill result-label result-cardio">{{ hz.zoneSecondMinutes }}</span>
+        <span [class]="getCardioCellClass(hz.cardioMinutes)">{{ hz.cardioMinutes }}</span>
       </td>
       <td class="text-center">
-        <span class="badge badge-pill result-label result-peak">{{ hz.zoneThirdMinutes }}</span>
+        <span [class]="getFatBurnCellClass(hz.fatBurnMinutes)">{{ hz.fatBurnMinutes }}</span>
+      </td>
+      <td class="text-center">
+        <span>{{ hz.activeMinutes}}</span>
       </td>
       <td class="text-center">
         <span>{{ hz.calories }}</span>

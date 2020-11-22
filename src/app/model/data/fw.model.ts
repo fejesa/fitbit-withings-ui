@@ -50,9 +50,10 @@ export class FitbitUserActivities {
 export class FitbitHeartZones {
   constructor(public date: string,
               public restingHeartRate: number,
-              public zoneFirstMinutes: number,
-              public zoneSecondMinutes: number,
-              public zoneThirdMinutes: number,
+              public fatBurnMinutes: number,
+              public cardioMinutes: number,
+              public peakMinutes: number,
+              public activeMinutes: number,
               public calories: number,
               public bloodPressureSeverity: string) {
   }

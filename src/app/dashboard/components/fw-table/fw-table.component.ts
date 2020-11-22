@@ -37,17 +37,34 @@ export class FwTableComponent {
     return this.data[1].map(a => this.toHeartZones(a, this.data[0]));
   }
 
+  getFatBurnCellClass(value: number): string {
+    return value > 0 ? 'badge badge-pill result-label result-fatburn' : 'badge result-label';
+  }
+
+  getPeakCellClass(value: number): string {
+    return value > 0 ? 'badge badge-pill result-label result-peak' : 'badge result-label';
+  }
+
+  getCardioCellClass(value: number): string {
+    return value > 0 ? 'badge badge-pill result-label result-cardio' : 'badge result-label';
+  }
+
   private toHeartZones(activitiesHeart: FitbitActivitiesHeart, bloodPressures: WithingsBloodPressure[]): FitbitHeartZones {
     const date = activitiesHeart.dateTime;
     const restingHeartRate = activitiesHeart.value.restingHeartRate;
     const heartRateZones = activitiesHeart.value.heartRateZones;
     const calories = heartRateZones.reduce((a, b) => a + b.caloriesOut, 0);
+    const fatBurnMins = this.zoneMins(HeartZone.FatBurn, heartRateZones);
+    const cardioMins = this.zoneMins(HeartZone.Cardio, heartRateZones);
+    const peakMins = this.zoneMins(HeartZone.Peak, heartRateZones);
+    const activeZoneMins = fatBurnMins + 2 * cardioMins + 2 * peakMins;
 
     return new FitbitHeartZones(date,
       restingHeartRate,
-      this.zoneMins(HeartZone.FatBurn, heartRateZones),
-      this.zoneMins(HeartZone.Cardio, heartRateZones),
-      this.zoneMins(HeartZone.Peak, heartRateZones),
+      fatBurnMins,
+      cardioMins,
+      peakMins,
+      activeZoneMins,
       calories,
       this.bpmSeverity(date, bloodPressures));
   }
