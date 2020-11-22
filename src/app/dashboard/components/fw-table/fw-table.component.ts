@@ -8,7 +8,7 @@ import {
   HeartZone,
   WithingsBloodPressure
 } from '../../../model/data/fw.model';
-import {isSameDay} from '../../../util/date.util';
+import {getDateAsString, isSameDay} from '../../../util/date.util';
 import {
   isGradeHypertensionDiastolic,
   isGradeHypertensionSystolic,

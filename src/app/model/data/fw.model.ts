@@ -59,6 +59,31 @@ export class FitbitHeartZones {
   }
 }
 
+export class FitbitActivitiesIntradayHeart {
+  constructor(public dateTime: string,
+              public activitiesHeartRate: FitbitActivitiesHeartRate) {
+  }
+}
+
+export class FitbitActivitiesIntradayHeartRateData {
+  constructor(public time: string,
+              public value: number) {
+  }
+}
+
+export class FitbitActivitiesIntradayHeartRateDataset {
+  constructor(public dataset: FitbitActivitiesIntradayHeartRateData[],
+              public datasetInterval: number,
+              public datasetType: string) {
+  }
+}
+
+export class FitbitActivitiesIntradayHeartList {
+  constructor(public activitiesHeart: FitbitActivitiesIntradayHeart[],
+              public activitiesIntradayHeartRateDataset: FitbitActivitiesIntradayHeartRateDataset) {
+  }
+}
+
 export enum HeartZone {
   OutOfRange= 'Out of Range',
   FatBurn = 'Fat Burn',

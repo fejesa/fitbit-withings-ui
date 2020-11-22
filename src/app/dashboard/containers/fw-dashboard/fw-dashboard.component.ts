@@ -44,9 +44,9 @@ export class FWDashboardComponent implements DoCheck {
     if (this.isChanged()) {
       this.updateState();
 
-      forkJoin([this.withingsDataSource
-        .getBloodPressures(this.period), this.fitbitDataSource
-        .getUserActivities(this.period)])
+      forkJoin([
+        this.withingsDataSource.getBloodPressures(this.period),
+        this.fitbitDataSource.getUserActivities(this.period)])
         .subscribe(results => {
           this.data = [results[0], results[1].activitiesHeartList];
           this.user = results[1].user;
