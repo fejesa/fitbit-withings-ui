@@ -42,7 +42,7 @@ export class FitbitActivitiesHeart {
 
 export class FitbitUserActivities {
   constructor(public user: FitbitUser,
-              public activitiesHeartList: FitbitActivitiesHeart[],
+              public activities: FitbitActivitiesHeart[],
               public device: FitbitDevice) {
   }
 }
@@ -61,26 +61,26 @@ export class FitbitHeartZones {
 
 export class FitbitActivitiesIntradayHeart {
   constructor(public dateTime: string,
-              public activitiesHeartRate: FitbitActivitiesHeartRate) {
-  }
-}
-
-export class FitbitActivitiesIntradayHeartRateData {
-  constructor(public time: string,
-              public value: number) {
+              public value: FitbitActivitiesHeartRate) {
   }
 }
 
 export class FitbitActivitiesIntradayHeartRateDataset {
-  constructor(public dataset: FitbitActivitiesIntradayHeartRateData[],
-              public datasetInterval: number,
-              public datasetType: string) {
+  constructor(public dataset: FitbitActivitiesIntradayHeartRate[],
+              public datasetInterval: number) {
   }
 }
 
-export class FitbitActivitiesIntradayHeartList {
-  constructor(public activitiesHeart: FitbitActivitiesIntradayHeart[],
-              public activitiesIntradayHeartRateDataset: FitbitActivitiesIntradayHeartRateDataset) {
+export class FitbitUserIntradayActivities {
+  constructor(public user: FitbitUser,
+              public activities: FitbitActivitiesIntradayHeart[],
+              public dataset: FitbitActivitiesIntradayHeartRateDataset) {
+  }
+}
+
+export class FitbitActivitiesIntradayHeartRate {
+  constructor(public time: string,
+              public value: number) {
   }
 }
 

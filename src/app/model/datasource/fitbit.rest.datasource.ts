@@ -1,6 +1,6 @@
 import {Inject, Injectable, InjectionToken} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {FitbitActivitiesIntradayHeartList, FitbitUserActivities} from '../data/fw.model';
+import {FitbitUserActivities, FitbitUserIntradayActivities} from '../data/fw.model';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {getDateAsString} from '../../util/date.util';
@@ -27,10 +27,10 @@ export class FitbitRestDatasource {
       throwError(`Network Error: ${error.statusText} (${error.status})`)));
   }
 
-  getUserIntradayActivities(date: Date): Observable<FitbitActivitiesIntradayHeartList> {
+  getUserIntradayActivities(date: Date): Observable<FitbitUserIntradayActivities> {
     const d = getDateAsString(date);
     console.log(`Loading fitbit user intra day activities on ${d}`);
-    return this.http.request<FitbitActivitiesIntradayHeartList>(
+    return this.http.request<FitbitUserIntradayActivities>(
       'GET',
       this.url + `/detailed-activities?date=${d}`, {
         headers: this.createRequestHeaders()

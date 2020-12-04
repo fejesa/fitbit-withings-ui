@@ -2,7 +2,7 @@ import {Component, DoCheck} from '@angular/core';
 import {WithingsRestDatasource} from '../../../model/datasource/withings.rest.datasource';
 import {FitbitRestDatasource} from '../../../model/datasource/fitbit.rest.datasource';
 import {forkJoin} from 'rxjs';
-import {FitbitActivitiesHeart, FitbitUser, FitbitUserActivities, WithingsBloodPressure} from '../../../model/data/fw.model';
+import {FitbitActivitiesHeart, FitbitUser, WithingsBloodPressure} from '../../../model/data/fw.model';
 import {getDefaultPeriod} from '../../../util/date.util';
 
 @Component({
@@ -48,7 +48,7 @@ export class FWDashboardComponent implements DoCheck {
         this.withingsDataSource.getBloodPressures(this.period),
         this.fitbitDataSource.getUserActivities(this.period)])
         .subscribe(results => {
-          this.data = [results[0], results[1].activitiesHeartList];
+          this.data = [results[0], results[1].activities];
           this.user = results[1].user;
         });
     }

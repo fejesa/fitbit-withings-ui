@@ -11,6 +11,11 @@ export function getDateAsString(value: Date): string {
   return moment(value).format('YYYY-MM-DD');
 }
 
+export function getDateTime(date: Date, time: string): Date {
+  const ds = getDateAsString(date) + ' ' + time;
+  return moment(ds).toDate();
+}
+
 export function getDateTimeAsString(value: number): string {
   return moment(toDate(value)).format('YY-MM-DD HH:mm');
 }
