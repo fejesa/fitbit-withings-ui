@@ -6,24 +6,31 @@ import {forkJoin} from 'rxjs';
 import * as moment from 'moment';
 
 import {
+  Axis,
   AxisTickStrategies,
-  ChartXY, Color, ColorHEX,
+  ChartXY,
+  Color,
+  ColorHEX,
   ColorRGBA,
-  emptyLine, IndividualPointFill,
+  emptyLine,
+  IndividualPointFill,
   lightningChart,
-  Point, PointShape,
+  Point,
+  PointShape,
   SolidFill,
   SolidLine,
   Themes
 } from '@arction/lcjs';
-import {FitbitHeartRateZone, FitbitUserIntradayActivities, WithingsBloodPressure} from '../../../model/data/fw.model';
+import {FitbitHeartRateZone, FitbitUserIntradayActivities, HeartZone, WithingsBloodPressure} from '../../../model/data/fw.model';
 import {getDateTime, toDate} from '../../../util/date.util';
 import {
   isGradeHypertensionDiastolic,
-  isGradeHypertensionSystolic, isHighNormalDiastolic,
+  isGradeHypertensionSystolic,
+  isHighNormalDiastolic,
   isHighNormalSystolic,
   isNormalDiastolic,
-  isNormalSystolic, isOptimalDiastolic,
+  isNormalSystolic,
+  isOptimalDiastolic,
   isOptimalSystolic
 } from '../../../util/fw.utils';
 
@@ -35,11 +42,12 @@ export class FwChartComponent implements OnDestroy, OnInit {
   chart: ChartXY;
 
   private normalColor = ColorRGBA(40, 167, 69);
-  private highNormalColor = ColorRGBA(255, 193, 7);
+  private highNormalColor = ColorRGBA(230, 172, 0);
   private hypertensionColor = ColorRGBA(220, 53, 69);
 
   constructor(private withingsDataSource: WithingsRestDatasource,
-              private fitbitDataSource: FitbitRestDatasource, private route: ActivatedRoute) {
+              private fitbitDataSource: FitbitRestDatasource,
+              private route: ActivatedRoute) {
   }
 
   ngOnDestroy(): void {
@@ -53,7 +61,7 @@ export class FwChartComponent implements OnDestroy, OnInit {
 
     this.chart = lightningChart().ChartXY({
       theme: Themes.light
-    }).setTitle(`Fitbit & Withings Heart Rate and Blood Pressure - date: ${d}`);
+    }).setTitle(`Fitbit Heart Rate & Withings Blood Pressure : ${d}`);
 
     const axisX = this.chart
       .getDefaultAxisX()
@@ -72,22 +80,22 @@ export class FwChartComponent implements OnDestroy, OnInit {
         .addRow(series.getName() + ' HR: ' + Math.floor(Yvalue));
     };
 
-    const axisY1 = this.chart.getDefaultAxisY()
-      .setTitle('mmHg')
+    const hrAxisY = this.chart.getDefaultAxisY()
+      .setTitle('Heart Rate')
       .setScrollStrategy(undefined)
-      .setInterval(0, 200, true, true)
+      .setInterval(0, 220, true, true)
       .setTickStrategy(AxisTickStrategies.Numeric, tickStrategy => tickStrategy
         .setMajorTickStyle(tickStyle => tickStyle.setGridStrokeStyle(emptyLine)));
 
-    const axisY2 = this.chart.addAxisY(false)
-      .setTitle('Heart Rate')
-      .setInterval(0, 220, true, true)
+    const bpmAxisY = this.chart.addAxisY(false)
+      .setTitle('mmHg')
+      .setInterval(0, 200, true, true)
       .setTickStrategy(AxisTickStrategies.Numeric, tickStrategy => tickStrategy
         .setMajorTickStyle(tickStyle => tickStyle.setGridStrokeStyle(emptyLine)));
 
     const systoleSeries = this.chart.addPointSeries(
       { xAxis: axisX,
-               yAxis: axisY1,
+               yAxis: bpmAxisY,
                pointShape: PointShape.Circle
              })
       .setName('Sys')
@@ -97,7 +105,7 @@ export class FwChartComponent implements OnDestroy, OnInit {
     const diastoleSeries = this.chart.addPointSeries(
       {
                xAxis: axisX,
-               yAxis: axisY1,
+               yAxis: bpmAxisY,
                pointShape: PointShape.Triangle
              })
       .setName('Dia')
@@ -107,7 +115,7 @@ export class FwChartComponent implements OnDestroy, OnInit {
     const heartRateSeries = this.chart.addSplineSeries(
       {
                xAxis: axisX,
-               yAxis: axisY2
+               yAxis: hrAxisY
              }
       ).setName('Fitbit')
       .setStrokeStyle(new SolidLine({
@@ -162,7 +170,35 @@ export class FwChartComponent implements OnDestroy, OnInit {
             .setTickMarkerXAutoTextStyle(true)
             .setTickMarkerYAutoTextStyle(true);
         });
+
+        this.addHRBand(hrAxisY, this.getZoneBoundaries(results[1], HeartZone.FatBurn), '#ffe6b3');
+        this.addHRBand(hrAxisY, this.getZoneBoundaries(results[1], HeartZone.Cardio), '#ffd9b3');
+        this.addHRBand(hrAxisY, this.getZoneBoundaries(results[1], HeartZone.Peak), '#ffccd0');
       });
+  }
+
+  private addHRBand(hrAxisY: Axis, {min, max}, color: string): void {
+    const diaBand = hrAxisY.addBand(false)
+      .setValueStart(min)
+      .setValueEnd(max)
+      .setStrokeStyle(
+        new SolidLine({
+          thickness: 1,
+          fillStyle: new SolidFill({ color: ColorHEX(color) })
+        })
+      )
+      .setFillStyle(
+        new SolidFill({ color: ColorHEX(color) })
+      );
+  }
+
+  // tslint:disable-next-line:typedef
+  private getZoneBoundaries(data: FitbitUserIntradayActivities, zone: HeartZone) {
+    const heartZone = data.activities[0].value.heartRateZones.find(hz => hz.name === zone);
+    return {
+      min: heartZone.min,
+      max: heartZone.max
+    };
   }
 
   private getHeartRatePoints(baseDate: Date, data: FitbitUserIntradayActivities): Point[] {
