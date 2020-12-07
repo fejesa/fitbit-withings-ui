@@ -25,6 +25,12 @@ export class FWUserComponent {
 
   getWeight(): number {
     if (!this.isEmpty()) {
+      return this.user.weight;
+    }
+  }
+
+  getHeight(): number {
+    if (!this.isEmpty()) {
       return this.user.height;
     }
   }
